@@ -13,7 +13,8 @@ module.exports = {
         blue2color:"#2C73D2",
         blue3color:"#85B8EC",
         blue4color:"#442AE6",
-        input:"#D9D9D9"
+        input:"#D9D9D9",
+        skeleton:"rgb(199, 199, 199)"
       },
       screens:{
         md1:'750px',

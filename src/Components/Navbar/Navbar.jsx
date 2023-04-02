@@ -37,7 +37,7 @@ export default function Navbar() {
                   <img src={logo} alt="Logo" />
               </Link> 
             </div>
-              <div className={`navbar__links ${isMenuOpen ? 'navbar__links__responsive' : ''}`}>
+              <div className={`navbar__links ${isMenuOpen ? 'navbar__links__responsive animate-slidedown' : ''}`}>
                 <ul className='navbar__links__left'>
                     <li className={pathname=='/events'?('bg-blue3color p-2 rounded-2xl'):''}><Link to="/events">Evenement</Link></li>
                     <li className={pathname=='/donation'?(' bg-blue3color p-2 rounded-2xl'):''}><Link to="/donation">Donation</Link></li>

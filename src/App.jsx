@@ -14,6 +14,7 @@ import Event from './Components/Events/Event'
 import Stripe from './Components/Payment/Stripe'
 import RequireAuthAdmin from './Route/RequireAuthAdmin'
 import Addevent from './Components/Addevent/Addevent'
+import SkeletonEventCard from './Components/Skeletons/SkeletonEventCard'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             {/* public route */}
             <Route exact path='/' element={<About/>} />
             <Route path='/signup' element={<Signup/>} />
+            <Route path='/test' element={<SkeletonEventCard/>} />
             <Route path='/signin' element={<Signin/>} />
             <Route path='/events' element={<Events/>} />
             <Route path='/events/:id' element={<Event/>} />

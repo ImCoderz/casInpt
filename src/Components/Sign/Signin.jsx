@@ -4,6 +4,8 @@ import { Link, useLocation,Navigate, useNavigate} from 'react-router-dom'
 import auth, { googleprovider } from '../../../firebase'
 import { useAuth } from '../../Context/Authcontext'
 import { signInWithEmailAndPassword ,signInWithPopup} from 'firebase/auth'
+import ErrorMessage from '../Util/ErrorMessage'
+import MyInput from '../Util/MyInput'
 
 const Signin = () => {
     
@@ -59,17 +61,9 @@ const Signin = () => {
             <FaUserAlt size={30} className="text-blue4color"/>
             <div className='flex flex-col  sm:gap-14 gap-3 w-full'>
                 <h2 className='sm:text-3xl text-xl font-bold md1:w-[700px] w-[400px] text-center  gradient '>Rejoignez votre session:</h2>
-                {error&&(
-                    <h2 className='text-sm font-bold text-red-500'>{error}</h2>
-                )}
-                <div className='flex  sm:flex-row flex-col gap-7 '>
-                    <h3 className='text-lg font-semibold text-blue1color sm:w-[32%] flex-1 sm:flex-none '>Email:</h3>
-                    <input required ref={emailref} type="email" className='flex-1 bg-input rounded-xl outline-1 outline-blue1color text-blue2color py-1 px-2'/>
-                </div>
-                <div className='flex sm:flex-row flex-col gap-7 '>
-                    <h3 className='text-lg font-semibold text-blue1color sm:w-[32%] flex-1 sm:flex-none'>Mot de passe:</h3>
-                    <input required  ref={passwordref} type="password" className='flex-1 bg-input rounded-xl outline-1 outline-blue1color text-blue2color py-1 px-2'/>
-                </div>
+                <ErrorMessage error={error}/>
+                <MyInput p textcolor="text-blue1color" bg="bg-input" title="Email :" type="email" ref={emailref}/>
+                <MyInput p textcolor="text-blue1color" bg="bg-input" title="Mot de passe :" type="password" ref={passwordref}/>
                 <div>
                     <h2 className='text-sm font-bold w-[600px] text-blue1color text-left '>you don’t have an account . <Link to='/signup' className='border-b-2 border-blue1color hover:border-blue3color hover:text-blue3color'>Registre</Link></h2>
                 </div>

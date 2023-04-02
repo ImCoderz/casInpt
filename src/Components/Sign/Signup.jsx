@@ -4,6 +4,8 @@ import {FaUserAlt} from 'react-icons/fa'
 import { createUserWithEmailAndPassword,updateProfile} from 'firebase/auth'
 import auth from '../../../firebase'
 import { useLocation, useNavigate } from 'react-router-dom'
+import ErrorMessage from '../Util/ErrorMessage'
+import MyInput from '../Util/MyInput'
 
 const Signup = () => {
     const location = useLocation();
@@ -28,7 +30,6 @@ const Signup = () => {
                     .catch((error) => {
                         const errorMessage = error.message;
                         setError(errorMessage)
-                        // ..
                 })
                 await updateProfile(auth.currentUser, { displayName: usernameref.current.value }).then(()=>{
                     navigate(from,{replace:true})
@@ -36,7 +37,6 @@ const Signup = () => {
                 .catch(
                     (err) => console.log(err)
                 );
-                // await signup(emailref.current.value, passwordref.current.value)
             }catch{
                 setError('Failed to create an account')
             }
@@ -53,25 +53,11 @@ const Signup = () => {
             <FaUserAlt size={27} className="text-blue4color"/>
             <div className='flex flex-col sm:gap-11 gap-2'>
                 <h2 className='sm:text-3xl text-xl font-bold text-blue1color gradient'>Rejoignez notre groupe en s’inscrivant:</h2>
-                {error&&(
-                    <h2 className='text-sm font-bold text-red-500'>{error}</h2>
-                )}
-                <div className='flex  flex-col sm:flex-row   sm:gap-7 gap-2 w-full'>
-                    <h3 className='text-lg font-semibold text-blue1color sm:w-[32%] flex-1 sm:flex-none'>Username:</h3>
-                    <input required ref={usernameref} type="text" className='flex-1 bg-input rounded-xl outline-1 outline-blue1color text-blue2color py-1 px-2'/>
-                </div>
-                <div className='flex flex-col sm:flex-row  sm:gap-7 gap-2 w-full'>
-                    <h3 className='text-lg font-semibold text-blue1color sm:w-[32%] flex-1 sm:flex-none '>Email:</h3>
-                    <input required ref={emailref} type="email" className='flex-1 bg-input rounded-xl outline-1 outline-blue1color text-blue2color py-1 px-2'/>
-                </div>
-                <div className='flex  flex-col sm:flex-row sm:gap-7 gap-2 w-full'>
-                    <h3 className='text-lg font-semibold text-blue1color sm:w-[32%] w-full flex-1 sm:flex-none'>Mot de passe:</h3>
-                    <input required ref={passwordref} type="password" className='flex-1 bg-input rounded-xl outline-1 outline-blue1color text-blue2color py-1 px-2'/>
-                </div>
-                <div className='flex flex-col sm:flex-row  sm:gap-7 gap-2 w-full'>
-                    <h3 className='text-lg font-semibold text-blue1color sm:w-[32%] flex-1 sm:flex-none'>Confirmer:</h3>
-                    <input required ref={confirmref} type="password" className='flex-1 bg-input rounded-xl outline-1 outline-blue1color text-blue2color  py-1 px-2'/>
-                </div>
+                <ErrorMessage error={error}/>
+                <MyInput p textcolor="text-blue1color" bg="bg-input" title="Username :" type="text" ref={usernameref} />
+                <MyInput p textcolor="text-blue1color" bg="bg-input" title="Email :" type="email" ref={emailref} />
+                <MyInput p textcolor="text-blue1color" bg="bg-input" title="Mot de passe :" type="password" ref={passwordref} />
+                <MyInput p textcolor="text-blue1color" bg="bg-input" title="Confirmer :" type="password" ref={confirmref} />
             </div>
             <button disabled={loading} type="submit" className='bg-blue1color text-white font-bold text-sm py-3 hover:bg-blue3color transition-all duration-300 px-8 rounded-3xl'>Sign Up</button>
         </form>

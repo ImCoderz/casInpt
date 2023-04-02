@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import event from '../../assets/event.png'
 import { useAuth } from '../../Context/Authcontext'
@@ -6,30 +6,24 @@ import ProgressBar from '../Util/ProgressBar'
 import { CiCircleRemove } from 'react-icons/ci'
 import { FaDonate } from 'react-icons/fa'
 import { GiClothes } from 'react-icons/gi'
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from '../../../firebase'
+import toast,{ Toaster } from 'react-hot-toast'
+import RemoveCard from './RemoveCard'
+import { RemoveButton } from '../Util/Buttons'
+
 
 const EventCard = ({dateEnd,dateStart,description,name,destination,photoURL,id,setRemoved}) => {
-    const deleteEvent=async()=>{
-        try {
-            await deleteDoc(doc(db,"events",id));
-            setRemoved(true)
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    const [open,setOpen]=useState(false)
+    
     const {currentUser}=useAuth()
   return (
-    <div className='lg:w-[870px] md1:w-[700px] w-[370px] rounded-3xl bg-blue3color relative flex flex-col justify-center items-center gap-3 px-4 py-1'>
-        {
-            currentUser?.email=="admin@gmail.com" && (
-                <button  onClick={deleteEvent} className='hover:bg-red-400 duration-300 text-sm text-bgcolor rounded-tr-3xl bg-red-600 sm:px-4 px-4 py-1 absolute top-0 right-0 flex gap-3'>Remove <CiCircleRemove size={27}/></button>
-            )
-        }
+    <div className='relative lg:w-[870px] md1:w-[700px] w-[370px] rounded-3xl  bg-blue3color  flex flex-col justify-center items-center gap-3 px-4 py-1'>
+        <Toaster/>
+        <RemoveCard open={open} setOpen={setOpen} setRemoved={setRemoved} title={id}/>
+        <RemoveButton setOpen={setOpen}/>
         <h1 className='font-[1000] text-[1.25rem] text-blue2color'>{name}</h1>
         <div className='flex md1:flex-row flex-col  gap-3 w-full justify-center '>
             <div className=' rounded-xl md1:w-[50%] w-full h-[200px]'>
-                <img className='w-full h-full' src={photoURL||event} alt="eventpicture" />
+                <img className={`w-full rounded-xl h-full ${!photoURL&&('skeleton')}`} src={photoURL} alt="eventpicture" />
             </div>
             <div className='md1:w-[50%] w-full  h-[200px] border-2 flex flex-col gap-0  border-bgcolor rounded-xl p-2 pt-4'>
                 <div className='flex gap-3 p-1 items-center'>

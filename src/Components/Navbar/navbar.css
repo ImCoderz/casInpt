@@ -106,6 +106,7 @@ header .first {
   height: auto;
   color: #007FFF;
   font-size: 35px;
+  z-index: 9999;
   padding-right: 10px;
   cursor: pointer;
   display: none;
@@ -144,8 +145,8 @@ header .first {
 
   .navbar__links__responsive {
     display: flex;
-    z-index: 99999;
-    width:180px ;
+    z-index: 999;
+    width: 100vw;
     justify-content: flex-start;
     align-items: center;
     

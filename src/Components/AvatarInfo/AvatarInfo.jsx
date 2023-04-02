@@ -6,20 +6,22 @@ import { useAuth } from '../../Context/Authcontext';
 import auth from '../../../firebase';
 import { signOut } from 'firebase/auth';
 import AvatarImage from './AvatarImage';
+import toast ,{Toaster} from 'react-hot-toast';
 
 
 export default function AvatarInfo({setShowAvatarInfo}) {
     async function handleSignout(){
         await signOut(auth).then(() => {
             setShowAvatarInfo(false)
-            // Sign-out successful.oe
+            toast.success("you have logged out successfully")
           }).catch((error) => {
-            // An error happened.
+            toast.error("Error occured while logging out")
           });
     }
     const {currentUser}=useAuth()
   return (
     <div className='avatar'>
+        <Toaster/>
         <div className='avatar__first'>
             <div className='avatar__first__img'>
                <AvatarImage/>
